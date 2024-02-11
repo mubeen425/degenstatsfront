@@ -41,7 +41,7 @@ const Home = () => {
 
         // Update state with fetched balance
         setbxgavailable(balance);
-            const getuserData = await axios.get(`http://localhost:4000/api/bxg/${address}`)
+            const getuserData = await axios.get(`https://cryptojugend-bd0c060f0a83.herokuapp.com/api/bxg/${address}`)
             const currentDate = new Date();
             const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
             const formattedDate = currentDate.toLocaleDateString('en-GB', options);
@@ -49,16 +49,16 @@ const Home = () => {
            const {day1,day7}  = getuserData.data
 
            if (day1 === null && day7 === null) {
-            const updateBalance = await axios.put(`http://localhost:4000/api/bxg/${getuserData.data.id}`, { day1: `${formattedDate}:${balance}` })
+            const updateBalance = await axios.put(`https://cryptojugend-bd0c060f0a83.herokuapp.com/api/bxg/${getuserData.data.id}`, { day1: `${formattedDate}:${balance}` })
             console.log(updateBalance);
           } else {
            let apiDate =  day1.split(":")[0] 
           if(apiDate == formattedDate ){
-            const updateBalance = await axios.put(`http://localhost:4000/api/bxg/${getuserData.data.id}`, { day1: `${formattedDate}:${balance}` })
+            const updateBalance = await axios.put(`https://cryptojugend-bd0c060f0a83.herokuapp.com/api/bxg/${getuserData.data.id}`, { day1: `${formattedDate}:${balance}` })
             console.log(updateBalance.data);
           } else{
 
-            const updateBalance = await axios.put(`http://localhost:4000/api/bxg/${getuserData.data.id}`, { day7: `${formattedDate}:${balance}` })
+            const updateBalance = await axios.put(`https://cryptojugend-bd0c060f0a83.herokuapp.com/api/bxg/${getuserData.data.id}`, { day7: `${formattedDate}:${balance}` })
             console.log(updateBalance.data);
 
           }

@@ -13,7 +13,7 @@ const CompleteTask = () => {
     changeBackground({ value: "dark", label: "Dark" });
     const getTasks = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/tasks");
+        const response = await axios.get("https://cryptojugend-bd0c060f0a83.herokuapp.com/api/tasks");
         setTasksData(response.data);
       } catch (error) {
         console.error("Error while fetching tasks: ", error);
