@@ -56,6 +56,7 @@ function Login(props) {
 
 
   const sendTransaction = async () => {
+    
     try {
       const provider = await getProvider();
       console.log(provider);
@@ -79,10 +80,15 @@ function Login(props) {
       await connection.confirmTransaction(signature);
 
       // Redirect on success
+      console.log(fee);
       const userWithToken = await axiosInstance.get(`/api/profile/${fee.wallet_address}`);
-      console.error(userWithToken.data.id);
-      const updatedUser = await axiosInstance.put(`/api/profile/${userWithToken.data.id}`,{fee:'0.1'});
-      updatedUser.data == "updated" && navigate('/dashboard');
+      console.log(userWithToken.data);
+     let id = await userWithToken.data.id
+      const updatedUser = await axiosInstance.put(`/api/profile/${id}`,{fee:'0.1'});
+      
+      updatedUser.data == "updated" && 
+      
+      navigate('/dashboard');
     } catch (error) {
 
       alert('Payment failed, please try again.'); 
@@ -121,8 +127,8 @@ function Login(props) {
         const { data } = await axiosInstance.post("/user/login/", dt);
         
         if (data.status) {
-        console.log(dt);
-
+        console.log(data);
+          localStorage.setItem('accessToken',data.access)
         if (walletsId) {
           const responseWithToken = await axiosInstance.get(`/api/profile/${dt.wallet_address}`);
           
@@ -131,15 +137,20 @@ function Login(props) {
            : navigate('/dashboard')
         }
         else{
-          const mesg = await axios.post("https://cryptojugend-bd0c060f0a83.herokuapp.com/api/profile/", {
+          console.log(balance);
+          const mesg = await axios.post("http://localhost:4000/api/profile/", {
         wallet_address: dt.wallet_address,
         email: "demo@gmail.com",
         whatsapp: "123456",
+        
       });
       console.log('here is a code ',mesg);
       localStorage.setItem('token', dt.wallet_address);
-      
+      const updateBalance = await axios.put(`http://localhost:4000/api/bxg/${mesg.data.id}`, { bxg:balance })
+        console.log(updateBalance);
       setIsConnected('Connected')
+        const checkTheWallet = await axiosInstance.get(`/api/profile/${dt.wallet_address}`);
+      checkTheWallet.data.fee != null && navigate('/dashboard');
       if (mesg) {
         toast.success("Profile Added successfully ", {
           style: { minWidth: 180 },

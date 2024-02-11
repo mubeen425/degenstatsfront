@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperSlideCard from "./SwiperSlideCard";
+import { useEffect } from "react";
+import axios from "axios";
 
 const SwiperSlider = ({
   bxgavailable,
@@ -10,7 +12,15 @@ const SwiperSlider = ({
   totalEarning,
   RewardMEMES,
   rewardBonus,
+  todayEarning,
+  todayProfit,
+  weeklyProfit,
+  solPrice
 }) => {
+
+  
+ 
+
   return (
     <div className="col-xl-12">
       <Swiper
@@ -60,14 +70,14 @@ const SwiperSlider = ({
         </SwiperSlide>
         <SwiperSlide>
           <SwiperSlideCard
-            amount={referralBonus}
+            amount={ todayProfit}
             translateKey="dashboard_card_3"
             currency=" SOL"
           />
         </SwiperSlide>
         <SwiperSlide>
           <SwiperSlideCard
-            amount={rewardBonus == null ? 0 : rewardBonus}
+            amount={weeklyProfit}
             translateKey="dashboard_card_4"
             currency=" SOL"
           />
@@ -114,14 +124,14 @@ const SwiperSlider = ({
       >
         <SwiperSlide>
           <SwiperSlideCard
-            amount={referralBonus}
+            amount={bxgavailable}
             translateKey="dashboard_card_5"
             currency="SOL"
           />
         </SwiperSlide>
         <SwiperSlide>
           <SwiperSlideCard
-            amount={referralBonus}
+            amount={bxgavailable*solPrice}
             translateKey="Total Holdings in USD ($)"
             currency="$ USD"
           />

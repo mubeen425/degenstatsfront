@@ -149,7 +149,7 @@ const allroutesMain = [
 const Markup = () => {
   const token = localStorage.getItem('token')
   const navigate = useNavigate()
-  console.log('okgggggggg');
+  
   const state = useSelector((state) => state);
   let allroutes = [];
   if (!token){ navigate('/') }

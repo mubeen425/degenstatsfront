@@ -57,7 +57,7 @@ npm i
 npm start
 ```
 
-Then open `https://cryptojugend-bd0c060f0a83.herokuapp.com` in your browser.
+Then open `http://localhost:4000` in your browser.
 
 ### npm scripts
 
